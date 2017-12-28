@@ -13,15 +13,14 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 from decouple import Config, RepositoryEnv
 
-#-------------------------------------------------------------------------------
-# Create new config class so it finds the .env file in the project
-DOTENV_FILE = './.env'
-env_config = Config(RepositoryEnv(DOTENV_FILE))
-#-------------------------------------------------------------------------------
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#-------------------------------------------------------------------------------
+# Create new config class so it finds the .env file in the project
+DOTENV_FILE = os.path.join(BASE_DIR, '.env-debug')
+env_config = Config(RepositoryEnv(DOTENV_FILE))
+#-------------------------------------------------------------------------------
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -30,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env_config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env_config('DEBUG', default=False, cast=bool)
+DEBUG = env_config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -57,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'TestAPI.urls'
@@ -136,11 +136,11 @@ REST_FRAMEWORK = {
     )
 }
 
-# Security settings for deployment
-SECURE_CONTENT_TYPE_NOSNIFF = env_config('SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=bool)
-SECURE_BROWSER_XSS_FILTER = env_config('SECURE_BROWSER_XSS_FILTER', default=True, cast=bool)
-SECURE_SSL_REDIRECT = env_config('SECURE_SSL_REDIRECT', default=True, cast=bool)
-SESSION_COOKIE_SECURE = env_config('SESSION_COOKIE_SECURE', default=True, cast=bool)
-CSRF_COOKIE_SECURE = env_config('CSRF_COOKIE_SECURE', default=True, cast=bool)
-CSRF_COOKIE_HTTPONLY = env_config('CSRF_COOKIE_HTTPONLY', default=True, cast=bool)
-X_FRAME_OPTIONS = env_config('X_FRAME_OPTIONS')
+# Security settings for production, default values are False for development
+SECURE_CONTENT_TYPE_NOSNIFF = env_config('SECURE_CONTENT_TYPE_NOSNIFF', default=False, cast=bool)
+SECURE_BROWSER_XSS_FILTER = env_config('SECURE_BROWSER_XSS_FILTER', default=False, cast=bool)
+SECURE_SSL_REDIRECT = env_config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+SESSION_COOKIE_SECURE = env_config('SESSION_COOKIE_SECURE', default=False, cast=bool)
+CSRF_COOKIE_SECURE = env_config('CSRF_COOKIE_SECURE', default=False, cast=bool)
+CSRF_COOKIE_HTTPONLY = env_config('CSRF_COOKIE_HTTPONLY', default=False, cast=bool)
+X_FRAME_OPTIONS = env_config('X_FRAME_OPTIONS', default='')
