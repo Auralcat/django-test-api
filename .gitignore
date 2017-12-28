@@ -1,3 +1,4 @@
 .env
+.env-debug
 ./__pycache__
 #*
