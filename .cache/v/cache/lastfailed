@@ -1,1 +1,5 @@
-{}
+{
+  "tests/catalog/test_views.py::TestProductDetailAnonymous::test_admin_can_delete_a_product": true,
+  "tests/catalog/test_views.py::TestProductDetailAnonymous::test_admin_can_update_a_product": true,
+  "tests/catalog/test_views.py::TestProductDetailAnonymous::test_anonymous_cannot_delete_a_product": true
+}

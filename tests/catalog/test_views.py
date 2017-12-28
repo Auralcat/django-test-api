@@ -83,7 +83,7 @@ class TestProductListAdmin(APIAdminAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(Product.objects.count(), 8)
 
-class TestProductDetailAnonymous(APITestCase):
+class TestProductDetailAdmin(APITestCase):
     @pytest.mark.django_db
     def test_admin_can_delete_a_product(self):
         url = reverse('product-detail', kwargs={'product_id': 1})
