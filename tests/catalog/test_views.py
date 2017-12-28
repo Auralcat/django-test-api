@@ -82,3 +82,43 @@ class TestProductListAdmin(APIAdminAPITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(Product.objects.count(), 8)
+
+class TestProductDetailAnonymous(APITestCase):
+    @pytest.mark.django_db
+    def test_admin_can_delete_a_product(self):
+        url = reverse('product-detail', kwargs={'product_id': 1})
+
+        response = self.client.delete(url)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Product.objects.count(), 7)
+
+    @pytest.mark.django_db
+    def test_anonymous_cannot_delete_a_product(self):
+        url = reverse('product-detail', kwargs={'product_id': 1})
+
+        # Logout so the user is anonymous
+        self.client.logout()
+
+        response = self.client.delete(url)
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(Product.objects.count(), 8)
+
+    @pytest.mark.django_db
+    def test_admin_can_update_a_product(self):
+        url = reverse('product-detail', kwargs={'product-id': 1})
+
+        data = {
+            "name": "Salame",
+            "description": "Salame Toscano autentico",
+            "price": "8.60"
+        }
+
+        response = self.client.put(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Product.objects.count(), 8)
+        self.assertEqual(response.json()['price'], '8.60')
+        self.assertEqual(
+            response.json()['description'], 'Salame Toscano autentico')
