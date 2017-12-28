@@ -129,3 +129,17 @@ class TestProductDetailAdmin(APITestCase):
         self.assertEqual(response.json()['price'], '8.60')
         self.assertEqual(
             response.json()['description'], 'Salame Toscano autentico')
+
+    @pytest.mark.django_db
+    def test_admin_can_patch_a_product(self):
+        url = reverse('product-detail', kwargs={'product_id': 1})
+
+        data = {
+            "price": "8.60"
+        }
+
+        response = self.client.patch(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Product.objects.count(), 8)
+        self.assertEqual(response.json()['price'], '8.60')
