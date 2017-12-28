@@ -9,14 +9,6 @@ from catalog.models import Product, Review
 
 UserModel = get_user_model()
 
-class TestProductList(APITestCase):
-    @pytest.mark.django_db
-    def test_can_get_product_list(self):
-        url = reverse('product-list')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.json()), 8)
-
 class APIAdminAPITestCase(APITestCase):
     @pytest.mark.django_db
     def setUp(self):
@@ -25,6 +17,7 @@ class APIAdminAPITestCase(APITestCase):
         token = Token.objects.create(user=self.user)
         self.client = APIClient()
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
 
 class APIUserAPITestCase(APITestCase):
     @pytest.mark.django_db
@@ -43,6 +36,7 @@ class APIUserAPITestCase(APITestCase):
        }
        self.client.post(url, data, format='json')
 
+
 class TestProductListAnonymous(APITestCase):
     @pytest.mark.django_db
     def test_can_get_product_list(self):
@@ -50,6 +44,7 @@ class TestProductListAnonymous(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 8)
+
 
 class TestProductListAdmin(APIAdminAPITestCase):
     @pytest.mark.django_db
@@ -83,12 +78,14 @@ class TestProductListAdmin(APIAdminAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(Product.objects.count(), 8)
 
+
 class TestProductDetailAnonymous(APITestCase):
     @pytest.mark.django_db
     def test_can_get_product_detail(self):
         url = reverse('product-detail', kwargs{'product_id': 1})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
 class TestProductDetailAdmin(APITestCase):
     @pytest.mark.django_db
