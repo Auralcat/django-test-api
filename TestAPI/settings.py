@@ -134,3 +134,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+# Security settings for deployment
+SECURE_CONTENT_TYPE_NOSNIFF = env_config('SECURE_CONTENT_TYPE_NOSNIFF', default=True, cast=bool)
+SECURE_BROWSER_XSS_FILTER = env_config('SECURE_BROWSER_XSS_FILTER', default=True, cast=bool)
+SECURE_SSL_REDIRECT = env_config('SECURE_SSL_REDIRECT', default=True, cast=bool)
+SESSION_COOKIE_SECURE = env_config('SESSION_COOKIE_SECURE', default=True, cast=bool)
+CSRF_COOKIE_SECURE = env_config('CSRF_COOKIE_SECURE', default=True, cast=bool)
+CSRF_COOKIE_HTTPONLY = env_config('CSRF_COOKIE_HTTPONLY', default=True, cast=bool)
+X_FRAME_OPTIONS = env_config('X_FRAME_OPTIONS')
