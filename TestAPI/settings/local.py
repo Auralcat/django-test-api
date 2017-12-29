@@ -3,5 +3,5 @@
 from .base import *
 from os import environ
 
-SECRET_KEY = environ.get('SECRET_KEY')
-DEBUG = environ.get('DEBUG')
+SECRET_KEY = get_env_variable('SECRET_KEY')
+DEBUG = get_env_variable('DEBUG')
