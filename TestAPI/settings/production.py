@@ -1,4 +1,5 @@
 # Settings to be used by the live production server.
+<<<<<<< HEAD
 
 DEBUG = True
 
@@ -10,3 +11,5 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
+=======
+>>>>>>> 19da176a923ccba80b03f70450568c6ed58cb588
