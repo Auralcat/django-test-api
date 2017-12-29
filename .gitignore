@@ -1,6 +1,7 @@
 .env
 .env-debug
 catalog/__pycache__/*
+.cache/*
 *.pyc
 *.pyo
 *.sqlite3
