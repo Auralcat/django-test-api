@@ -1,6 +1,7 @@
 # settings/local.py
 # Development environment settings
 from .base import *
+from os import environ
 
-SECRET_KEY='qJttY$>Y8vY<~$D6^Ah]ZS2k8G>Q~F/^$KbHAnF^{%{b(Dv*!6)}}'
-DEBUG = True
+SECRET_KEY = environ.get('SECRET_KEY')
+DEBUG = environ.get('DEBUG')
