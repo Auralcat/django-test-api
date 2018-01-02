@@ -82,7 +82,7 @@ class TestProductListAdmin(APIAdminAPITestCase):
 class TestProductDetailAnonymous(APITestCase):
     @pytest.mark.django_db
     def test_can_get_product_detail(self):
-        url = reverse('product-detail', kwargs{'product_id': 1})
+        url = reverse('product-detail', kwargs={'product_id': 1})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
