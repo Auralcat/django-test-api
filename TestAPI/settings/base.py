@@ -32,6 +32,9 @@ BASE_DIR = dirname(dirname(abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
+# Get secret key
+SECRET_KEY = get_env_variable("SECRET_KEY")
+
 ALLOWED_HOSTS = []
 
 # Application definition

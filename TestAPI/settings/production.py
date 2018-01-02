@@ -1,5 +1,7 @@
+from .base import *
+
 # Settings to be used by the live production server.
-DEBUG = True
+DEBUG = False
 
 # Security settings for production, default values are False for development
 SECURE_CONTENT_TYPE_NOSNIFF = True
