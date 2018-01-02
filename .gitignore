@@ -3,3 +3,4 @@ catalog/__pycache__/*
 *.pyc
 *.pyo
 *.sqlite3
+.py[cod]
